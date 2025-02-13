@@ -70,11 +70,12 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
     ndkVersion rootProject.ext.ndkVersion
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.reactnativesdkdemo"
+    namespace "com.carechain"
     defaultConfig {
-        applicationId "com.reactnativesdkdemo"
+        applicationId "com.carechain"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

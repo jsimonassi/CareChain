@@ -1,124 +1,79 @@
-# MetaMask React Native SDK Example
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-This repository provides a comprehensive example of how to set up and run a React Native application using the `MetaMask ReactNative SDK`.
+# Getting Started
 
-## Getting Started
+>**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-### Prerequisites
+## Step 1: Start the Metro Server
 
-Ensure you have the following installed:
+First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-- **Node.js** (version 18 or higher)
-- **Yarn** (package manager)
-- **JDK 11** (for Android)
+To start Metro, run the following command from the _root_ of your React Native project:
 
-The SDK supports communication with MetaMask wallet via deeplinking on iOS. This is the only supported communication mechanism on iOS and needs to be configured for the SDK to work on iOS. To configure your dapp to work with deeplink communication, you need to add a URL scheme in your dapp target's Info setting under URL Types on Xcode. Alternatively, you can add it in your dapp's plist as shown below:
+```bash
+# using npm
+npm start
 
-```xml
-<key>CFBundleURLTypes</key>
-<array>
-    <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>com.dubdapp</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>dubdapp</string>
-        </array>
-    </dict>
-</array>
-```
-
-Additionally, you need to add the following code in your dapp's `AppDelegate.m` file on iOS for the dapp to correctly handle MetaMask deeplinks:
-
-```objc
-#import <React/RCTBundleURLProvider.h>
-#import <React/RCTBridge.h>
-#import <React/RCTLinkingManager.h>
-
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
-{
-  return [RCTLinkingManager application:app openURL:url options:options];
-}
-```
-
-### Installation
-
-1. **Install dependencies:**
-
-```sh
-yarn install
-```
-
-2. **Install JDK 11 using Homebrew:**
-
-```sh
-brew install openjdk@11
-```
-
-3. **Install CocoaPods dependencies:**
-
-```sh
-cd ios && pod install
-```
-
-### Running the Project
-
-1. **Start the Metro server:**
-
-```sh
+# OR using Yarn
 yarn start
 ```
 
-2. **Run on iOS:**
+## Step 2: Start your Application
 
-```sh
-yarn ios
-```
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-3. **Run on iOS Device:**
+### For Android
 
-```sh
-yarn ios:device
-```
+```bash
+# using npm
+npm run android
 
-4. **Run on Android:**
-
-```sh
+# OR using Yarn
 yarn android
 ```
 
+### For iOS
 
-### Running the `sdk-react-native` Package Locally and Testing
+```bash
+# using npm
+npm run ios
 
-To run the `sdk-react-native` package locally and test it within the example dApp, follow these steps:
+# OR using Yarn
+yarn ios
+```
 
-1. **Copy the Package Path:**
-   - Right-click on the `sdk-react-native` package folder.
-   - Click on "Copy Path" to copy the folder path.
+If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-2. **Update the Example dApp:**
-   - Open the `package.json` file of your example dApp.
-   - Replace the existing reference to `sdk-react-native` with the copied path.
-   - The entry in your `package.json` should look something like this:
-     ```json
-     "@metamask/sdk-react-native": "/Users/{YOUR_MAC_USER_NAME}/Projects/metamask-sdk/packages/sdk-react-native"
-     ```
+This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-3. **Build and Link the Package:**
-   - Open a terminal and navigate to the `sdk-react-native` package folder.
-   - Run the following command to build the package and link it to the example dApp:
-     ```bash
-     yarn build && cd .. && cd examples/reactNativeSdkDemo && rm -rf .yarn && rm -rf node_modules && yarn && cd ios && pod install && cd ..
-     ```
+## Step 3: Modifying your App
 
-4. **Consume the Local Package:**
-   - Your example dApp is now consuming the `sdk-react-native` package from the local folder.
-   - After making any changes to the `sdk-react-native` package, repeat the above steps to see the updates reflected in the example dApp.
+Now that you have successfully run the app, let's modify it.
 
-5. **Build and Test:**
-   - With the local package linked, you can now build the example dApp and start testing.
+1. Open `App.tsx` in your text editor of choice and edit some lines.
+2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
----
-By following these steps, you ensure that the example dApp is using the latest local version of the `sdk-react-native` package, allowing for seamless development and testing.
+   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+
+## Congratulations! :tada:
+
+You've successfully run and modified your React Native App. :partying_face:
+
+### Now what?
+
+- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
+- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+
+# Troubleshooting
+
+If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+
+# Learn More
+
+To learn more about React Native, take a look at the following resources:
+
+- [React Native Website](https://reactnative.dev) - learn more about React Native.
+- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
+- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
+- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
+- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
