@@ -1,17 +1,28 @@
 import {useSDK} from '@metamask/sdk-react-native';
+import {useMetamaskStore} from '../stores/metamask';
 
 export const useMetaMask = () => {
   const {sdk, provider} = useSDK();
+  const {
+    setWalletAddress,
+    reset,
+    walletAddress,
+    balance,
+    loadDataFromCache,
+    setBalance,
+  } = useMetamaskStore();
 
   const connectWallet = async () => {
     try {
       console.log('Calling Connect....');
-
       const res = (await sdk?.connect()) as string[];
-      console.log('accounts', res);
-      return res;
+      if (res && res.length > 0) {
+        setWalletAddress(res[0]);
+      } else {
+        setWalletAddress(null);
+      }
     } catch (e) {
-      console.log('ERROR', e);
+      setWalletAddress(null);
     }
   };
 
@@ -30,18 +41,24 @@ export const useMetaMask = () => {
     }
   };
 
-  //   const disconnectWallet = async () => {
-  //     try {
-  //       console.log('Calling Disconnect....');
-  //       await sdk?.terminate();
-  //     } catch (e) {
-  //       console.log('ERROR', e);
-  //     }
-  //   };
+  const disconnectWallet = async () => {
+    try {
+      console.log('Calling Disconnect....');
+      await sdk?.terminate();
+      reset();
+    } catch (e) {
+      console.log('ERROR', e);
+    }
+  };
 
   return {
+    walletAddress,
+    balance,
     connectWallet,
+    disconnectWallet,
     getBalance,
+    loadDataFromCache,
+    setBalance,
   };
 };
 
