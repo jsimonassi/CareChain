@@ -14,6 +14,8 @@ declare module 'styled-components/native' {
       secondaryColor: string;
       secondaryColorLight: string;
       error: string;
+      white: string;
+      black: string;
     };
     typography: {
       text1: TypographyItem;
