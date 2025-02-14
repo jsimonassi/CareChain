@@ -4,12 +4,15 @@ import {darkTheme} from './constants/themes/darkTheme';
 import {MainRouter} from './routes';
 import {MetaMaskProvider} from '@metamask/sdk-react-native';
 import {useMetaMask} from './hooks/useMetamask';
+import {WatchService} from './services/WatchService';
 
 function App(): React.JSX.Element {
   const {loadDataFromCache} = useMetaMask();
 
   useEffect(() => {
-    loadDataFromCache();
+    WatchService.initSdk().then(() => {
+      loadDataFromCache();
+    });
   }, [loadDataFromCache]);
 
   return (

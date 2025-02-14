@@ -8,16 +8,38 @@ import com.facebook.react.bridge.Arguments
 import com.ido.ble.BLEManager
 import com.ido.ble.bluetooth.device.BLEDevice
 import com.ido.ble.callback.ScanCallBack
+import java.lang.ref.WeakReference
 
-class ScanManager(private val context: Context) : ScanCallBack.ICallBack {
+class ScanManager private constructor(context: Context) : ScanCallBack.ICallBack {
+
+    private val contextRef = WeakReference(context.applicationContext)
+
+    companion object {
+        @Volatile
+        private var instance: ScanManager? = null
+
+        fun getInstance(context: Context): ScanManager {
+            return instance ?: synchronized(this) {
+                instance ?: ScanManager(context).also { instance = it }
+            }
+        }
+    }
 
     fun startBtScan() {
-        if(PermissionHelper.hasLocationPermission(context) &&
-            PermissionHelper.hasBluetoothPermission(context)){
-            BLEManager.registerScanCallBack(this)
+        val context = contextRef.get() ?: run {
+            SDKEventSender.getInstance()?.sendEvent(AvailableEvents.EVENT_SCAN_ERROR, null)
+            return
+        }
 
+        if (PermissionHelper.hasLocationPermission(context) &&
+            PermissionHelper.hasBluetoothPermission(context)) {
+
+            BLEManager.unregisterScanCallBack(this)
+            BLEManager.registerScanCallBack(this)
             BLEManager.stopScanDevices()
             BLEManager.startScanDevices()
+        } else {
+            SDKEventSender.getInstance()?.sendEvent(AvailableEvents.EVENT_SCAN_ERROR, null)
         }
     }
 
@@ -28,10 +50,11 @@ class ScanManager(private val context: Context) : ScanCallBack.ICallBack {
     override fun onFindDevice(device: BLEDevice?) {
         val deviceName = device?.mDeviceName
         val mac = device?.mDeviceAddress
-        if(deviceName != null && mac != null){
-            val response = Arguments.createMap()
-            response.putString("name", deviceName)
-            response.putString("mac", mac)
+        if (deviceName != null && mac != null) {
+            val response = Arguments.createMap().apply {
+                putString("name", deviceName)
+                putString("mac", mac)
+            }
             SDKEventSender.getInstance()?.sendEvent(AvailableEvents.EVENT_DEVICE_FOUND, response)
         }
     }
@@ -39,5 +62,4 @@ class ScanManager(private val context: Context) : ScanCallBack.ICallBack {
     override fun onScanFinished() {
         SDKEventSender.getInstance()?.sendEvent(AvailableEvents.EVENT_SCAN_FINISHED, null)
     }
-
 }

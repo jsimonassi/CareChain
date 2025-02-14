@@ -2,7 +2,8 @@ package com.carechaincore.impl.shared.events
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.modules.core.RCTNativeAppEventEmitter
+import com.facebook.react.modules.core.DeviceEventManagerModule
+
 
 class SDKEventSender private constructor(private val reactApplicationContext: ReactApplicationContext) {
 
@@ -21,9 +22,9 @@ class SDKEventSender private constructor(private val reactApplicationContext: Re
         }
     }
 
-    fun sendEvent(eventName: String?, params: WritableMap?) {
+    fun sendEvent(eventName: String, params: WritableMap?) {
         reactApplicationContext
-            .getJSModule(RCTNativeAppEventEmitter::class.java)
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
             .emit(eventName, params)
     }
 }
