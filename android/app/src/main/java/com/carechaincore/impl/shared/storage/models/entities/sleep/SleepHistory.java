@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class SleepHistory {
-    @PrimaryKey(autoGenerate = true)
-    public long id;
+    @PrimaryKey
+    @NonNull
+    public String sleepDate;
     public int totalSleepMinutes;
     public int lightSleepMinutes;
     public int deepSleepMinutes;
@@ -16,9 +17,7 @@ public class SleepHistory {
     public Integer awrrStatus;
     public Integer sleepScore;
     public Integer breathQuality;
-
-    @NonNull
-    public String sleepDate;
     public String sleepDateStart;
+
     public boolean deleted;
 }

@@ -5,16 +5,15 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
-    indices = {@Index(value = {"date"}, unique = true)}
-)
+@Entity
 public class HeartRateHistory {
-    @PrimaryKey(autoGenerate = true)
-    public int id;
+    @PrimaryKey
+    @NonNull
+    public String date;
+
     public int value;
     public int minValuePeriod;
     public int maxValuePeriod;
-    @NonNull
-    public String date;
+
     public boolean deleted;
 }

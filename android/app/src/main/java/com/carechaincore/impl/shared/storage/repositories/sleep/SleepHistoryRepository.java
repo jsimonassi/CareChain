@@ -4,7 +4,6 @@ import com.carechaincore.impl.shared.helpers.DateHelpers;
 import com.carechaincore.impl.shared.storage.DAOs.sleep.SleepHistoryDao;
 import com.carechaincore.impl.shared.storage.DataStorage;
 import com.carechaincore.impl.shared.storage.models.entities.sleep.SleepHistory;
-import com.carechaincore.impl.shared.storage.models.entities.sleep.SleepHistoryWithItems;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -35,10 +34,6 @@ public class SleepHistoryRepository {
 
     public static SleepHistory getBySleepDateStart(String sleepDateStart) {
         return getSleepHistoryDao().getBySleepDateStart(sleepDateStart);
-    }
-
-    public static List<SleepHistoryWithItems> getSleepHistoryWithItems() {
-        return getSleepHistoryDao().getSleepHistoryWithItems();
     }
 
     public static List<SleepHistory> getSleepHistoryByPeriod(Date startDate, Date endDate) {

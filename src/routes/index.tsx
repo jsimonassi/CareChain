@@ -8,11 +8,13 @@ import {useMetaMask} from '../hooks/useMetamask';
 export const CurrentStack = () => {
   const {walletAddress} = useMetaMask();
 
-  if (!walletAddress) {
+  console.log(walletAddress);
+
+  if (walletAddress === null) {
     return <Loader />;
   }
 
-  if (walletAddress === '') {
+  if (!walletAddress) {
     return <PreAuthStack />;
   }
 

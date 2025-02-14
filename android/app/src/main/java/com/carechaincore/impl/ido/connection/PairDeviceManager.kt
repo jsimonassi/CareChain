@@ -4,6 +4,7 @@ import com.carechaincore.impl.shared.events.AvailableEvents
 import com.carechaincore.impl.shared.events.SDKEventSender
 import com.facebook.react.bridge.Arguments
 import com.ido.ble.BLEManager
+import com.ido.ble.LocalDataManager
 import com.ido.ble.bluetooth.connect.ConnectFailedReason
 import com.ido.ble.bluetooth.device.BLEDevice
 import com.ido.ble.callback.BindCallBack
@@ -59,7 +60,7 @@ class PairDeviceManager private constructor() {
         override fun onRetry(p0: Int, p1: String?) {}
 
         override fun onConnectSuccess(mac: String) {
-            if (BLEManager.isBind()) {
+            if (BLEManager.isBind() && LocalDataManager.isBind()) {
                 if (!BLEManager.isConnected()) {
                     BLEManager.autoConnect()
                 } else {
@@ -99,6 +100,7 @@ class PairDeviceManager private constructor() {
             val ret = Arguments.createMap()
             ret.putInt("state", PAIR_STATE_CONNECTED)
             SDKEventSender.getInstance()?.sendEvent(AvailableEvents.EVENT_PAIR_STATE, ret)
+            LocalDataManager.getSupportFunctionInfo()
         }
 
         override fun onFailed(p0: BindCallBack.BindFailedError?) {

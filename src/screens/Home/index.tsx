@@ -17,6 +17,14 @@ export const Home = () => {
     <Container>
       <Text>{walletAddress}</Text>
       <Button title="Scan" onPress={() => WatchService.startScanDevices()} />
+      <Button
+        title="Pair Device: 0F:7E:44:E7:AA:BD"
+        onPress={() => WatchService.pairDevice('0F:7E:44:E7:AA:BD')}
+      />
+      <Button
+        title="Sync All Data"
+        onPress={() => WatchService.syncAllData()}
+      />
     </Container>
   );
 };

@@ -7,6 +7,7 @@ import com.carechaincore.impl.ido.connection.PairDeviceManager
 import com.carechaincore.impl.shared.events.SDKEventSender
 import com.carechaincore.impl.ido.connection.ScanManager
 import com.carechaincore.impl.ido.syncdata.SyncDataManager
+import com.carechaincore.impl.shared.storage.DataStorage
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 
@@ -21,6 +22,8 @@ class CareChainCoreModule(reactContext: ReactApplicationContext) : NativeCareCha
         SDKConfig.setContext(application)
         SDKConfig.initBLEManager()
         SDKEventSender.getInstance(reactApplicationContext)
+
+        DataStorage.getInstance().init(reactApplicationContext)
         promise.resolve(true)
     }
 
@@ -37,6 +40,6 @@ class CareChainCoreModule(reactContext: ReactApplicationContext) : NativeCareCha
     }
 
     override fun syncAllData() {
-        SyncDataManager().requestSyncData()
+        SyncDataManager.getInstance().requestSyncData()
     }
 }

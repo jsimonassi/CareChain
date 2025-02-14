@@ -175,8 +175,8 @@ object DateHelpers {
     @JvmStatic
     fun getDateOnDay(year: Int, month: Int, day: Int): Date {
         val calendar = Calendar.getInstance()
-        calendar[year, month] = day
-
+        calendar.set(year, month, day, 0, 0, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
         return calendar.time
     }
 
@@ -346,5 +346,25 @@ object DateHelpers {
         return date.toInstant()
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
+    }
+
+    @JvmStatic
+    fun getDateTimeFromComponents(
+        year: Int,
+        month: Int,
+        day: Int,
+        hour: Int,
+        minute: Int,
+        second: Int
+    ): Date {
+        val calendar = Calendar.getInstance()
+        calendar[Calendar.YEAR] = year
+        calendar[Calendar.MONTH] = month
+        calendar[Calendar.DAY_OF_MONTH] = day
+        calendar[Calendar.HOUR_OF_DAY] = hour
+        calendar[Calendar.MINUTE] = minute
+        calendar[Calendar.SECOND] = second
+        calendar[Calendar.MILLISECOND] = 0
+        return calendar.time
     }
 }
