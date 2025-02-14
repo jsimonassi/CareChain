@@ -3,8 +3,10 @@ package com.carechaincore.impl
 import android.app.Application
 import com.carechaincore.NativeCareChainCoreSpec
 import com.carechaincore.impl.ido.config.SDKConfig
+import com.carechaincore.impl.ido.connection.PairDeviceManager
 import com.carechaincore.impl.shared.events.SDKEventSender
 import com.carechaincore.impl.ido.connection.ScanManager
+import com.carechaincore.impl.ido.syncdata.SyncDataManager
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 
@@ -26,15 +28,15 @@ class CareChainCoreModule(reactContext: ReactApplicationContext) : NativeCareCha
         ScanManager.getInstance(reactApplicationContext).startBtScan()
     }
 
-    override fun pairDevice(deviceMac: String?) {
-        TODO("Not yet implemented")
+    override fun pairDevice(deviceMac: String) {
+        PairDeviceManager.getInstance().pairDevice(deviceMac)
     }
 
-    override fun disconnectDevice(deviceMac: String?) {
-        TODO("Not yet implemented")
+    override fun disconnectDevice() {
+        PairDeviceManager.getInstance().disconnectDevice()
     }
 
     override fun syncAllData() {
-        TODO("Not yet implemented")
+        SyncDataManager().requestSyncData()
     }
 }
