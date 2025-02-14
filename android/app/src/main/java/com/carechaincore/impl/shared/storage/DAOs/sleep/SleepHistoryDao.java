@@ -2,6 +2,7 @@ package com.carechaincore.impl.shared.storage.DAOs.sleep;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Dao
 public interface SleepHistoryDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     Long insert(SleepHistory sleepHistory);
 
     @Insert
