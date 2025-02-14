@@ -114,7 +114,16 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+
+    //Smartwatch SDK
     implementation files('libs/IDoBLELib-VeryFit-2.70.00.jar')
+
+    //Room database
+    def room_version = "2.4.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // RxJava support for Room - IDODataStorage
+    implementation "androidx.room:room-rxjava2:$room_version"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
