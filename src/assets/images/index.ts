@@ -4,6 +4,7 @@ import SmartwatchRun from './Smartwatch-amico.png';
 import LocationPermission from './location-permission.png';
 import bluetoothPermission from './bt-permission.png';
 import profile from './profile.png';
+import device from './device.png';
 
 export const Assets = {
   logo,
@@ -12,4 +13,5 @@ export const Assets = {
   LocationPermission,
   bluetoothPermission,
   profile,
+  device,
 };
