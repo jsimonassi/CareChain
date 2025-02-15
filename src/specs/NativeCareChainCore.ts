@@ -1,11 +1,29 @@
 import {TurboModule, TurboModuleRegistry} from 'react-native';
+import {
+  HeartRateHistoryItem,
+  PedometerHistoryItem,
+  SleepHistoryItem,
+  StressHistoryItem,
+} from '../types/NativeCareChainCore';
 
 export interface Spec extends TurboModule {
   initSdk(): Promise<void>;
   startScanDevices(): void;
   pairDevice(deviceMac: string): void;
   disconnectDevice(): void;
+
   syncAllData(): void;
+
+  getHeartRateHistory(
+    startDate: string,
+    endDate: string,
+  ): Promise<HeartRateHistoryItem[]>;
+  getPedometerHistory(date: string): Promise<PedometerHistoryItem>;
+  getStressHistory(
+    startDate: string,
+    endDate: string,
+  ): Promise<StressHistoryItem[]>;
+  getSleepHistory(sleepDate: string): Promise<SleepHistoryItem>;
 }
 
 export const NativeCareChainCore = TurboModuleRegistry.getEnforcing<Spec>(

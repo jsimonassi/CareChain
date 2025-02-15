@@ -22,3 +22,29 @@ export interface SyncStateEvent {
 export interface PairStateEvent {
   state: PairState;
 }
+
+export interface HeartRateHistoryItem {
+  value: number;
+  date: string;
+}
+
+export interface PedometerHistoryItem {
+  steps: number;
+  calories: number;
+  distance: number;
+  date: string;
+}
+
+export interface StressHistoryItem {
+  value: number;
+  date: string;
+}
+
+export interface SleepHistoryItem {
+  date: string;
+  totalSleepMinutes: number;
+  lightSleepMinutes: number;
+  deepSleepMinutes: number;
+  remSleepMinutes: number;
+  awakeSleepMinutes: number;
+}

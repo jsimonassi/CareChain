@@ -42,4 +42,20 @@ class CareChainCoreModule(reactContext: ReactApplicationContext) : NativeCareCha
     override fun syncAllData() {
         SyncDataManager.getInstance().requestSyncData()
     }
+
+    override fun getHeartRateHistory(startDate: String, endDate: String, promise: Promise) {
+        SyncDataManager.getInstance().getHeartRateHistory(startDate, endDate, promise)
+    }
+
+    override fun getPedometerHistory(date: String, promise: Promise) {
+        SyncDataManager.getInstance().getPedometerHistory(date, promise)
+    }
+
+    override fun getStressHistory(startDate: String, endDate: String, promise: Promise) {
+        SyncDataManager.getInstance().getStressHistory(startDate, endDate, promise)
+    }
+
+    override fun getSleepHistory(sleepDate: String, promise: Promise) {
+        SyncDataManager.getInstance().getSleepHistory(sleepDate, promise)
+    }
 }

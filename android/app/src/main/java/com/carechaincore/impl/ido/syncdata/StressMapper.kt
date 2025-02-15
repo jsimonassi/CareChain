@@ -3,6 +3,9 @@ package com.carechaincore.impl.ido.syncdata
 import com.carechaincore.impl.shared.helpers.DateHelpers
 import com.carechaincore.impl.shared.storage.models.entities.heartRate.HeartRateHistory
 import com.carechaincore.impl.shared.storage.models.entities.stress.StressHistory
+import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.WritableArray
+import com.facebook.react.bridge.WritableMap
 import com.ido.ble.data.manage.database.HealthPressureItem
 
 object StressMapper {
@@ -24,6 +27,17 @@ object StressMapper {
         }
 
         return dbList
+    }
+
+    fun convertDataStorageObj2JSObj(dbStressList: List<StressHistory>): WritableArray {
+        val jsList: WritableArray = Arguments.createArray()
+        for (item in dbStressList) {
+            val jsItem: WritableMap = Arguments.createMap()
+            jsItem.putString("date", item.date)
+            jsItem.putInt("value", item.value)
+            jsList.pushMap(jsItem)
+        }
+        return jsList
     }
 
 }

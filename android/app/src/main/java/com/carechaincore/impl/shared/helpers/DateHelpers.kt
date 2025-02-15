@@ -31,6 +31,12 @@ object DateHelpers {
     }
 
     @JvmStatic
+    fun convertStringToDate(dateString: String?, format: String?): Date {
+        val dateFormatStartDay: DateFormat = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormatStartDay.parse(dateString)
+    }
+
+    @JvmStatic
     fun formatDate(date: LocalDateTime, format: String?): String {
         val formatter = DateTimeFormatter.ofPattern(format)
         return date.format(formatter)

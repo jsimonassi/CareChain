@@ -2,12 +2,16 @@ package com.carechaincore.impl.ido.syncdata
 
 import com.carechaincore.impl.shared.events.AvailableEvents
 import com.carechaincore.impl.shared.events.SDKEventSender
+import com.carechaincore.impl.shared.helpers.DateHelpers
 import com.carechaincore.impl.shared.storage.DAOs.pedometer.PedometerHistoryDAO
+import com.carechaincore.impl.shared.storage.models.entities.pedometer.PedometerHistoryData
 import com.carechaincore.impl.shared.storage.repositories.heartRate.HeartRateHistoryRepository
 import com.carechaincore.impl.shared.storage.repositories.pedometer.PedometerHistoryRepository
 import com.carechaincore.impl.shared.storage.repositories.sleep.SleepHistoryRepository
 import com.carechaincore.impl.shared.storage.repositories.stress.StressHistoryRepository
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.WritableArray
 import com.ido.ble.BLEManager
 import com.ido.ble.business.sync.SyncPara
 import com.ido.ble.callback.SyncV3CallBack
@@ -33,6 +37,7 @@ import com.ido.ble.protocol.model.DrinkPlanData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class SyncDataManager {
 
@@ -186,6 +191,47 @@ class SyncDataManager {
 
         override fun onGetHealthV3EcgData(p0: HealthV3Ecg?) {
             
+        }
+    }
+
+
+
+    //Get History Data
+
+    fun getHeartRateHistory(start: String?, end: String?, promise: Promise) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val startDate = DateHelpers.convertStringToDate(start, DateHelpers.dateISOFormat)
+            val endDate = DateHelpers.convertStringToDate(end, DateHelpers.dateISOFormat)
+            val data = HeartRateHistoryRepository.getHistoryOfPeriod(startDate, endDate)
+            val ret = HeartRateMapper.convertDataStorageObj2JSObj(data)
+            promise.resolve(ret)
+        }
+    }
+
+    fun getPedometerHistory(date: String?, promise: Promise) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val parsedDate = DateHelpers.convertStringToDate(date, DateHelpers.dateISOFormat)
+            val data = PedometerHistoryRepository.getHistoryOfDay(parsedDate)
+            val ret = PedometerMapper.convertDataStorageObj2JSObj(data)
+            promise.resolve(ret)
+        }
+    }
+
+    fun getStressHistory(start: String?, end: String?, promise: Promise) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val startDate = DateHelpers.convertStringToDate(start, DateHelpers.dateISOFormat)
+            val endDate = DateHelpers.convertStringToDate(end, DateHelpers.dateISOFormat)
+            val data = StressHistoryRepository.getHistoryOfPeriod(startDate, endDate)
+            val ret = StressMapper.convertDataStorageObj2JSObj(data)
+            promise.resolve(ret)
+        }
+    }
+
+    fun getSleepHistory(sleepDateStr: String, promise: Promise) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val data = SleepHistoryRepository.getBySleepDate(sleepDateStr)
+            val ret = SleepMapper.convertDataStorageObj2JSObj(data)
+            promise.resolve(ret)
         }
     }
 }

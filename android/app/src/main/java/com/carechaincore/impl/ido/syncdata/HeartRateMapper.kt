@@ -2,6 +2,10 @@ package com.carechaincore.impl.ido.syncdata
 
 import com.carechaincore.impl.shared.helpers.DateHelpers
 import com.carechaincore.impl.shared.storage.models.entities.heartRate.HeartRateHistory
+import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.WritableArray
+import com.facebook.react.bridge.WritableMap
 import com.ido.ble.data.manage.database.HealthHeartRateSecond
 
 object HeartRateMapper {
@@ -23,5 +27,16 @@ object HeartRateMapper {
         }
 
         return dbList
+    }
+
+    fun convertDataStorageObj2JSObj(dbHeartRate: List<HeartRateHistory>): WritableArray {
+        val jsList: WritableArray = Arguments.createArray()
+        for (item in dbHeartRate) {
+            val jsItem: WritableMap = Arguments.createMap()
+            jsItem.putString("date", item.date)
+            jsItem.putInt("value", item.value)
+            jsList.pushMap(jsItem)
+        }
+        return jsList
     }
 }
