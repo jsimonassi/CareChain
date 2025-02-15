@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CareChain</string>
+    <string name="db_name">carechain.db</string>
 </resources>
