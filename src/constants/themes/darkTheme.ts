@@ -13,6 +13,8 @@ export const darkTheme: DefaultTheme = {
     secondaryColor: '#CCCCCC',
     secondaryColorLight: '#EFEFEF',
     error: '#9A2426',
+    white: '#FFFF',
+    black: '#000',
   },
   typography: {
     text1: {
