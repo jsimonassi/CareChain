@@ -11,17 +11,41 @@ import {Device} from './components/Device';
 import {AppButton} from '../../components/buttons/AppButton';
 import {useState} from 'react';
 import {Assets} from '../../assets/images';
+import {FlatList} from 'react-native';
 
 export const Scanning = () => {
-  const [foundDevices, setFoundDevices] = useState(false);
+  const [foundDevices, setFoundDevices] = useState(true);
+
+  const DATA = [
+    {
+      id: 1,
+      name: 'Life Ultra GPS',
+      description: 'AB:AB:00:4T:55:CC',
+    },
+    {
+      id: 2,
+      name: 'GTX44',
+      description: 'AB:AB:00:4T:55:CC',
+    },
+    {
+      id: 3,
+      name: 'IDW30',
+      description: 'AB:AB:00:4T:55:CC',
+    },
+  ];
   return (
     <Container>
       {foundDevices ? (
         <SubContainer>
           <SubTitleText>Select your device:</SubTitleText>
-          <Device description="AB:AB:00:4T:55:CC" name="Life Ultra GPS" />
-          <Device description="AB:AB:00:4T:55:CC" name="GTX44" />
-          <Device description="AB:AB:00:4T:55:CC" name="IDW30" />
+
+          <FlatList
+            data={DATA}
+            renderItem={({item}) => (
+              <Device description={item.description} name={item.description} />
+            )}
+            keyExtractor={item => item.id}
+          />
         </SubContainer>
       ) : (
         <ContainerDeviceNotFound>

@@ -5,6 +5,9 @@ import LocationPermission from './location-permission.png';
 import bluetoothPermission from './bt-permission.png';
 import profile from './profile.png';
 import device from './device.png';
+import money from './money.png';
+import bluetoohImg from './bluetooth.png';
+import smartwatch from './smartwatch.png';
 
 export const Assets = {
   logo,
@@ -14,4 +17,7 @@ export const Assets = {
   bluetoothPermission,
   profile,
   device,
+  money,
+  bluetoohImg,
+  smartwatch,
 };

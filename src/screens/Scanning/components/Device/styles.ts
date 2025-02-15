@@ -8,7 +8,8 @@ export const DeviceButton = styled.TouchableOpacity`
   height: 80;
   border-radius: 15px;
   justify-content: center;
-  align-self: fle;
+  align-self: flex-start;
+  margin-bottom: 20px;
 `;
 
 export const DeviceContainerInside = styled.View`

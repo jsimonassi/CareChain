@@ -12,7 +12,6 @@ export const SubContainer = styled.View`
   display: flex;
   align-items: center;
   width: 90%;
-  gap: 20px;
 `;
 
 export const ContainerDeviceNotFound = styled.View`
@@ -27,6 +26,8 @@ export const SubTitleText = styled.Text`
   color: ${({theme}) => theme.palette.black};
   font-size: 14px;
   align-self: flex-start;
+  margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 export const SubTitleTextDeviceNotFound = styled.Text`
